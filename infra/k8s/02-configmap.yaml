@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: archplat
+data:
+  DATABASE_URL: postgres://app:app@postgres.archplat.svc.cluster.local:5432/app
+  NEXT_PUBLIC_API: http://backend.archplat.svc.cluster.local:4000

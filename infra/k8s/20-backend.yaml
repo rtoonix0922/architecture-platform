@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: archplat
+spec:
+  selector: { app: backend }
+  ports:
+  - port: 4000
+    targetPort: 4000
+    protocol: TCP
+  type: NodePort # simple local access; you can switch to ClusterIP + Ingress later
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: archplat
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: backend }
+  template:
+    metadata: { labels: { app: backend } }
+    spec:
+      containers:
+      - name: backend
+        image: platform-backend:dev
+        imagePullPolicy: IfNotPresent
+        ports: [ { containerPort: 4000 } ]
+        env:
+        - name: DATABASE_URL
+          valueFrom: { configMapKeyRef: { name: app-config, key: DATABASE_URL } }
+        - name: JWT_SECRET
+          valueFrom: { secretKeyRef: { name: app-secrets, key: JWT_SECRET } }
+        readinessProbe:
+          httpGet: { path: /projects, port: 4000 }
+          initialDelaySeconds: 10
+          periodSeconds: 10

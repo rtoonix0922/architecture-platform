@@ -1,0 +1,19 @@
+{
+    "name": "platform-backend",
+    "scripts": {
+      "dev": "node server.js",
+      "migrate": "node scripts/migrate.js",
+      "seed": "node scripts/seed.js",
+      "test": "jest"
+    },
+    "dependencies": {
+      "express": "^4",
+      "pg": "^8",
+      "jsonwebtoken": "^9",
+      "bcryptjs": "^2",
+      "cors": "^2",
+      "dotenv": "^16"
+    },
+    "devDependencies": { "jest": "^29", "supertest": "^6" }
+  }
+  

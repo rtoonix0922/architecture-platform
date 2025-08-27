@@ -1,0 +1,49 @@
+# --- Node / package managers ---
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Environment files ---
+.env
+.env.*
+**/.env
+**/.env.*
+*.local
+
+# --- Build / cache outputs ---
+**/dist/
+**/build/
+**/.cache/
+**/.turbo/
+**/.next/
+**/.next-cache/
+**/.vercel/
+**/out/
+**/coverage/
+*.tsbuildinfo
+
+# --- Logs ---
+logs/
+**/logs/
+*.log
+*.log.*
+
+# --- Test tooling (optional) ---
+playwright-report/
+**/playwright-report/
+**/test-results/
+.cypress/
+**/cypress/videos/
+**/cypress/screenshots/
+
+# --- Editors / OS ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- Docker / local data ---
+**/docker-data/
+**/tmp/
