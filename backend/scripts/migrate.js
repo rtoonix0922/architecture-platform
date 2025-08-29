@@ -24,8 +24,20 @@ const pool = new Pool({ connectionString: url});
       id serial primary key, tenant_id text not null references tenants(id),
       name text, email text, message text, created_at timestamptz default now()
     );
+    CREATE TABLE IF NOT EXISTS project_expenses (
+      id serial primary key,
+      tenant_id text not null references tenants(id),
+      project_id int not null references projects(id),
+      amount numeric(14,2) not null,
+      note text,
+      created_at timestamptz default now()
+    );
+    CREATE INDEX IF NOT EXISTS idx_expenses_tenant ON project_expenses(tenant_id, project_id, id);
+
     CREATE INDEX IF NOT EXISTS idx_projects_tenant ON projects(tenant_id, id);
     CREATE INDEX IF NOT EXISTS idx_inquiries_tenant ON inquiries(tenant_id, id);
   `);
   console.log('migrated'); process.exit(0);
 })();
+
+
