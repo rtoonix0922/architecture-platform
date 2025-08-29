@@ -1,5 +1,15 @@
 // backend/scripts/migrate.js
-const { Pool } = require('pg'); const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+require('dotenv').config();
+const { Pool } = require('pg'); 
+
+const url = process.env.DATABASE_URL;
+if (!url || typeof url !== 'string') {
+  console.error('ERROR: DATABASE_URL is missing or not a string. Check backend/.env');
+  process.exit(1);
+}
+
+const pool = new Pool({ connectionString: url});
 (async () => {
   await pool.query(`
     CREATE TABLE IF NOT EXISTS tenants (id text primary key, name text not null);
