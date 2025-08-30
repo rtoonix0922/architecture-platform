@@ -11,8 +11,11 @@
         "cors": "^2.8.5",
         "dotenv": "^16",
         "express": "^4",
-        "jsonwebtoken": "^9",
-        "pg": "^8"
+        "helmet": "^8.1.0",
+        "jsonwebtoken": "^9.0.2",
+        "pg": "^8",
+        "pino": "^9.9.0",
+        "zod": "^4.1.5"
     },
     "devDependencies": {
         "jest": "^29",

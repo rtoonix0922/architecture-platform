@@ -3,3 +3,22 @@
 /* @tailwind base;
 @tailwind components;
 @tailwind utilities; */
+
+/* --- App polish ---------------------------------------------------------- */
+html, body { min-height: 100%; }
+body {
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 60%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* nicer focus */
+:where(button, a, input, select, textarea):focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(148,163,184,.45), 0 0 0 4px rgba(148,163,184,.25);
+  border-radius: .6rem;
+}
+
+/* soft card shadow utility (used by components) */
+.shadow-card { box-shadow: 0 2px 8px rgba(15,23,42,.06); }
+.shadow-card-lg { box-shadow: 0 6px 18px rgba(15,23,42,.10); }
