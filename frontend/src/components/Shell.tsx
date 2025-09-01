@@ -11,6 +11,9 @@ import {
   Menu,
   X,
   LogOut,
+  Bell,
+  MessageSquare,
+  Search,
 } from "lucide-react";
 
 type NavItem = {
@@ -100,7 +103,7 @@ function Sidebar({
           ))}
         </nav>
 
-        <div className="mt-auto absolute bottom:0 bottom-0 w-full p-3 ring-1 ring-inset ring-slate-200/70 bg-white">
+        <div className="mt-auto absolute bottom-0 w-full p-3 ring-1 ring-inset ring-slate-200/70 bg-white">
           <button
             onClick={logout}
             className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm
@@ -132,11 +135,15 @@ export default function Shell({ children }: { children: React.ReactNode }) {
   // close drawer on route change (mobile)
   useEffect(() => void setOpen(false), [pathname]);
 
-  // ---- APP SHELL ----
+  // cross-page event helper (header -> dashboard)
+  const emit = (type: string, detail?: any) =>
+    window.dispatchEvent(new CustomEvent(type, { detail }));
+
   return (
     <div className="min-h-dvh md:pl-64 bg-gradient-to-b from-slate-50 to-slate-100">
-      {/* topbar */}
+      {/* top header */}
       <header className="sticky top-0 z-10 h-14 bg-white/80 backdrop-blur-md ring-1 ring-slate-200/70 flex items-center gap-3 px-4 md:px-6">
+        {/* mobile menu button */}
         <button
           className="md:hidden -ml-1 p-2 rounded-lg hover:bg-slate-100"
           onClick={() => setOpen(true)}
@@ -144,8 +151,41 @@ export default function Shell({ children }: { children: React.ReactNode }) {
         >
           <Menu size={20} />
         </button>
-        <div className="text-sm text-slate-600 truncate">
-          {pathname === "/" ? "Home" : pathname.replace("/", "").replace(/-/g, " ")}
+
+        {/* search (fills available space) */}
+        <div className="flex-1">
+          <div className="relative">
+            <Search
+              size={16}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+            />
+            <input
+              placeholder="Search projects, status, stage, region…"
+              onChange={(e) => emit("ap:search", e.target.value)}
+              aria-label="Search projects"
+              className="w-full rounded-xl border border-slate-300 bg-white pl-9 pr-3 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-300"
+            />
+          </div>
+        </div>
+
+        {/* icons pinned to the far right */}
+        <div className="ml-auto flex items-center gap-2">
+          <button
+            title="Notifications"
+            onClick={() => emit("ap:open-notifications")}
+            className="rounded-xl p-2 ring-1 ring-slate-200 bg-white hover:shadow-sm transition"
+            aria-label="Open notifications"
+          >
+            <Bell size={18} />
+          </button>
+          <button
+            title="Messages"
+            onClick={() => emit("ap:open-messages")}
+            className="rounded-xl p-2 ring-1 ring-slate-200 bg-white hover:shadow-sm transition"
+            aria-label="Open messages"
+          >
+            <MessageSquare size={18} />
+          </button>
         </div>
       </header>
 
